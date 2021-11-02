@@ -1,39 +1,48 @@
 #include <iostream>
-#include <string>
 #include <list>
-#include <vector>
 #include <map>
+#include <string>
+#include <vector>
 using namespace std;
-
-class Base
+namespace MyNamespace
 {
-private:
-    int _num;
-public:
-    Base(/* args */) :_num(2) {}
-    ~Base() {}
-    void set(int num) { _num = num; }
-    int get() { return _num; }
-};
+    template <typename T>
+    void myfunc(T a) { cout << a << endl; }
 
-class A : public Base
-{
-public:
-    static A& getInstance()
+    class Base
     {
-        static A instance;
-        return instance;
-    }
-private:
-    /* data */
-private:
-    A(/* args */) {}
-    ~A() {}
-};
+    private:
+        int _num;
+
+    public:
+        Base(/* args */) : _num(2) {}
+        ~Base() {}
+        void set(int num) { _num = num; }
+        int get() { return _num; }
+    };
+
+    class A : public Base
+    {
+    public:
+        static A &getInstance()
+        {
+            static A instance;
+            return instance;
+        }
+
+    private:
+        /* data */
+    private:
+        A(/* args */) {}
+        ~A() {}
+    };
+
+}; // namespace MyNamespace
 
 int main()
 {
-    cout<< A::getInstance().get() << endl;
+    using namespace MyNamespace;
+    cout << A::getInstance().get() << endl;
     A::getInstance().set(5);
     cout << A::getInstance().get() << endl;
     return 0;

@@ -11,10 +11,13 @@
 using std::cout;
 using std::endl;
 
-struct wei {
+struct wei
+{
     char a;
     int b;
 };
+
+std::string a, b, c;
 
 void test11(int numProcess)
 {
@@ -26,30 +29,30 @@ void test11(int numProcess)
     std::string btrue("true,");
     std::string bfalse("false,");
     cout << agc << ans << aec << btrue << bfalse << endl;
-    switch(numProcess)
+    switch (numProcess)
     {
-        case 0:
-        {
-            able = agc + btrue + ans + bfalse + aec + bfalse;
-            ss << agc << btrue << ans << bfalse << aec << bfalse;
-        }
-        break;
-        case 1:
-        {
-            able = agc + btrue + ans + btrue + aec + bfalse;
-            ss << agc << btrue << ans << btrue << aec << bfalse;
-        }
-        break;
-        case 2:
-        {
-            able = agc + btrue + ans + btrue + aec + btrue;
-            ss << agc << btrue << ans << btrue << aec << btrue;
-        }
-        break;
-        default:
+    case 0:
+    {
+        able = agc + btrue + ans + bfalse + aec + bfalse;
+        ss << agc << btrue << ans << bfalse << aec << bfalse;
+    }
+    break;
+    case 1:
+    {
+        able = agc + btrue + ans + btrue + aec + bfalse;
+        ss << agc << btrue << ans << btrue << aec << bfalse;
+    }
+    break;
+    case 2:
+    {
+        able = agc + btrue + ans + btrue + aec + btrue;
+        ss << agc << btrue << ans << btrue << aec << btrue;
+    }
+    break;
+    default:
         break;
     }
-    cout << "able str:" << able  << endl;
+    cout << "able str:" << able << endl;
     cout << "ss str:" << ss.str().c_str() << endl;
 }
 
@@ -68,7 +71,7 @@ char *getAddrStr()
     std::string str = getAddrId(key, 1);
     int len = str.length();
     std::cout << "addrstr len:" << len << std::endl;
-    char* buf = new char[len+1];
+    char *buf = new char[len + 1];
     memmove(buf, str.c_str(), len);
     buf[len] = 0;
     return buf;
@@ -101,7 +104,7 @@ void funa()
     // memmove(cStr, pMsgData + 1, msgLen - 1);
     // msg.msgContent = cStr;
     int len = 10;
-    char* cStr = new char[len];
+    char *cStr = new char[len];
     memset(cStr, 0, len);
     memmove(cStr, buf + 1, len);
     c = cStr;
@@ -121,7 +124,7 @@ void fun1()
 {
     std::string s = "0  ";
     printf("%s ", s.c_str());
-    std::cout <<  s.size() << " " << s.length() << " " << s.empty() << std::endl;
+    std::cout << s.size() << " " << s.length() << " " << s.empty() << std::endl;
 }
 
 void test1()
@@ -134,7 +137,7 @@ void test1()
 }
 int main()
 {
-    
+
     test11(2);
 
     return 0;
