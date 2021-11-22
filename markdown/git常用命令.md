@@ -21,14 +21,20 @@
     ```git
     git  status
     ```
-6. 查看提交历史
+6. 查看diff(具体修改行)
+    ```git
+    git diff                <!-- 所以修改 -->
+    git diff <file_name>    <!-- 某一文件的修改 -->
+    ```
+7. 查看提交历史
     ```git
     git  log --oneline
     ```
-7. 查看本地操作记录
+8. 查看本地操作记录
     ```git
     git  reflog
     ```
+
 ##代码下载
 1. 下载源码
     ```git
@@ -72,6 +78,11 @@
     git  checkout <file_name>
     git  checkout -- <file_name>
     ```
+3. 隐藏指定文件的修改
+    ```git
+    git  stash <file_name>
+    git  stash pop <file_name>  //弹出隐藏
+    ```
 ###已暂存文件(未commit)
 1. 撤销 已暂存文件，使其重新放回工作区,变为已修改文件
     ```git
@@ -108,6 +119,10 @@
 2. 合并指定版本号(不包含此版本)
     ```git
     git rebase -i <commit_id>
+    ```
+3. 强制推送到远端仓库
+   ```git
+    git push -f
     ```
 ##分支管理
 1. 创建本地分支
