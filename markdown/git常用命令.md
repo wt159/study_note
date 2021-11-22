@@ -1,6 +1,7 @@
 [toc]  
-#git常用命令  
-##基本操作
+
+# git常用命令  
+## 基本操作
 1. 建立本地仓库
     ```git
     git  init
@@ -35,7 +36,7 @@
     git  reflog
     ```
 
-##代码下载
+## 代码下载
 1. 下载源码
     ```git
     git  clone <git地址>
@@ -53,7 +54,7 @@
     ```git
     git checkout -b "new-fix_branch" "origin/remote-fix-branch"
     ```
-##代码提交
+## 代码提交
 1. 添加到本地暂存库
     ```git
     git  add  <file_name>
@@ -66,8 +67,8 @@
     ```git
     git  push origin <remote_branch>
     ```
-##版本回滚
-###已修改文件(未暂存)
+## 版本回滚
+### 已修改文件(未暂存)
 1. 撤销 所有已修改但未放入暂存区的文件，但不包括新增的文件
     ```git
     git  checkout .
@@ -83,12 +84,12 @@
     git  stash <file_name>
     git  stash pop <file_name>  //弹出隐藏
     ```
-###已暂存文件(未commit)
+### 已暂存文件(未commit)
 1. 撤销 已暂存文件，使其重新放回工作区,变为已修改文件
     ```git
     git  reset  HEAD <file_name>
     ```
-###已commit文件(本地仓库回退)
+### 已commit文件(本地仓库回退)
 1. 查看commit-id
     ```git
     git  reflog
@@ -110,7 +111,7 @@
     ```git
     git  reset  --hard  [commit-id]
     ```
-###合并本地多个commit
+### 合并本地多个commit
 详情见：[Git合并多个commit,保持历史简洁](https://cloud.tencent.com/developer/article/1690638)
 1. 从最新版本(HEAD)开始往过去数3个版本
     ```git
@@ -124,7 +125,7 @@
    ```git
     git push -f
     ```
-##分支管理
+## 分支管理
 1. 创建本地分支
     ```git
     git branch [new-branch-name]
@@ -157,11 +158,10 @@
     ```git
     git branch -D [branch-name]
     ```
-##账户配置
+## 账户配置
 
-##常见问题
+## 常见问题
 1.本地分支和远端分支有着不同版本 `fatal: refusing to merge unrelated histories`
     ```git
     git pull origin master --allow-unrelated-histories
     ```
-2. 
