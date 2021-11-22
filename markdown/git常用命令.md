@@ -120,7 +120,7 @@
     ```git
     git rebase -i <commit_id>
     ```
-3. 强制推送到远端仓库
+3. 强制推送到远端仓库 
    ```git
     git push -f
     ```
