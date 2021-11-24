@@ -85,7 +85,7 @@ int  select( int  nfds, fd_set *readfds, fd_set *writefds,fd_set *exceptfds,  st
 * 返回值：执行成功则返回文件描述符集状态已改变的个数：
         如果文件描述符集中没有满足条件的，并且时间超出了timeout，则返回0；
         出错返回-1，此时参数readfds，writefds，exceptfds和timeout的值变成不可预测。并置相应的错误码：
-        
+
         EBADF ：文件描述符为无效的或该文件已关闭
         EINTR： 此调用被信号所中断
         EINVAL： 参数n 为负值。
