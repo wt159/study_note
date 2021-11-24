@@ -7,7 +7,9 @@
 using namespace std;
 
 // #define DEBUG 1
-
+/**
+ * 责任链模式
+ */
 class Handler
 {
 public:
