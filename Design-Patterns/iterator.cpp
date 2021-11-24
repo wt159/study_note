@@ -6,6 +6,7 @@
 using namespace std;
 
 /**
+ * 迭代器模式
  * C++ has its own implementation of iterator that works with a different
  * generics containers defined by the standard library.
  */
