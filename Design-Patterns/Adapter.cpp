@@ -7,6 +7,7 @@
 using namespace std;
 
 /**
+ * 适配器模式
  * The Target defines the domain-specific interface used by the client code.
  */
 class Target
