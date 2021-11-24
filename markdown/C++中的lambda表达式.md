@@ -1,5 +1,3 @@
-[toc]  
-
 # lambda表达式
 
 ## lambda介绍

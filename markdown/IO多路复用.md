@@ -1,9 +1,8 @@
+# I/O多路复用
+
 [Linux下select详解](https://blog.csdn.net/weixin_34268579/article/details/89767332?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_baidulandingword-5&spm=1001.2101.3001.4242)
 
 [select、poll和epoll优缺点和比较](https://blog.csdn.net/lixungogogo/article/details/52226501?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control)
-[toc]
-
-# I/O多路复用
 
 IO模型：
 
