@@ -238,7 +238,7 @@
 
 ## 账户配置
 
-## 常见问题
+## Q&A
 
 1. 本地分支和远端分支有着不同版本 `fatal: refusing to merge unrelated histories`  
 
