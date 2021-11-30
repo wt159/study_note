@@ -1,5 +1,10 @@
 # vscode files
-.vscode/*
+.vscode
 
+# build file
+build
+*.out
 *.exe
 *.o
+*.i
+*.s
