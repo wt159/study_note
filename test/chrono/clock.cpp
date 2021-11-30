@@ -52,10 +52,10 @@ int main()
     uint64_t u_start = GetSysTimeMicros();
     std::clock_t c_start = std::clock();
     auto t_start = std::chrono::high_resolution_clock::now();
-    // std::thread t1(f);
-    // std::thread t2(f); // 在二个线程上调用 f()
-    // t1.join();
-    // t2.join();
+    std::thread t1(f);
+    std::thread t2(f); // 在二个线程上调用 f()
+    t1.join();
+    t2.join();
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
     uint64_t u_end = GetSysTimeMicros();
     std::clock_t c_end = std::clock();
