@@ -38,8 +38,8 @@ public:
     void fun2();
 
 private:
-    class impl;
-    impl* pimpl;
+    class MyClassImpl;
+    MyClassImpl* pimpl;
 };
 
 #endif // DEBUG

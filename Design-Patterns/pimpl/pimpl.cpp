@@ -33,11 +33,11 @@ void MyClass::fun4()
 
 #else
 
-class MyClass::impl
+class MyClass::MyClassImpl
 {
 public:
-    impl();
-    ~impl();
+    MyClassImpl();
+    ~MyClassImpl();
 
     void fun1();
     void fun2();
@@ -51,33 +51,33 @@ private:
     int b;
 };
 
-MyClass::impl::impl()
+MyClass::MyClassImpl::MyClassImpl()
     : a(1), b(2)
 {
 }
 
-MyClass::impl::~impl()
+MyClass::MyClassImpl::~MyClassImpl()
 {
 }
 
-void MyClass::impl::fun1()
+void MyClass::MyClassImpl::fun1()
 {
     fun3();
 }
-void MyClass::impl::fun2()
+void MyClass::MyClassImpl::fun2()
 {
     fun4();
 }
-void MyClass::impl::fun3()
+void MyClass::MyClassImpl::fun3()
 {
     cout << "pimpl a is " << a << endl;
 }
-void MyClass::impl::fun4()
+void MyClass::MyClassImpl::fun4()
 {
     cout << "pimpl b is " << b << endl;
 }
 
-MyClass::MyClass() : pimpl(new impl)
+MyClass::MyClass() : pimpl(new MyClassImpl)
 {
 }
 
