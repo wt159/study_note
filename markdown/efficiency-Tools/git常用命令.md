@@ -51,6 +51,23 @@
     git  reflog
     ```
 
+9. 查看远端仓库信息及本地对应关系
+
+    ```git
+    git remote show origin
+    ```
+
+10. 本地仓库和远端仓库同步
+
+    ```git
+    <!-- 同步分支信息 -->
+    git fetch
+    git pull
+
+    <!-- 删除分支信息 -->
+    git remote prune origin
+    ```
+
 ## 代码下载
 
 1. 下载源码
