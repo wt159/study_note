@@ -10,6 +10,7 @@ public:
     NoCopyAble(NoCopyAble&&) = delete;
     void operator=(NoCopyAble&) = delete;
     void operator=(NoCopyAble&&) = delete;
+    virtual ~NoCopyAble() = default;
 };
 
 class AutoLock : public NoCopyAble

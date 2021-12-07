@@ -23,7 +23,7 @@ public:
     {
         std::cout << __func__ << " befor" << std::endl;
         std::unique_lock<std::recursive_mutex> lock(m_mutex);
-        std::lock_guard<std::recursive_mutex> lock(m_mutex);
+        std::lock_guard<std::recursive_mutex> lock1(m_mutex);
         printa();
         std::cout << __func__ << " after" << std::endl;
     }
