@@ -28,6 +28,9 @@ bool g()
     return local==global;
 }
 
+struct SizeStruct {};
+
+
 int main()
 {
     if(g()) {
@@ -35,5 +38,14 @@ int main()
     } else {
         cout << "not normal" << endl;
     }
+
+    SizeStruct s;
+    SizeStruct * sizeptr = new SizeStruct();
+
+    cout << "size:" << sizeof(SizeStruct) << endl;
+    cout << "size:" << sizeof s << endl;
+    cout << "size:" << sizeof(*sizeptr) << endl;
+
+    delete sizeptr;
     return 0;
 }
