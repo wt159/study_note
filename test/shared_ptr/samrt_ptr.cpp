@@ -33,7 +33,9 @@ template <typename T>
 class smart_ptr
 {
 public:
+    template <typename U>
     friend class smart_ptr;
+
     smart_ptr(T *ptr = nullptr) noexcept
         : _ptr(ptr)
     {
@@ -71,7 +73,6 @@ public:
         if (_ptr)
         {
             _sharedCount = other._sharedCount;
-            other._ptr = nullptr;
         }
     }
 
@@ -98,7 +99,7 @@ public:
     T *operator->() const noexcept { return _ptr; }
     operator bool() const noexcept { return _ptr; }
 
-    smart_ptr &operator=(const smart_ptr &other) noexcept
+    smart_ptr &operator=(smart_ptr other) noexcept
     {
         other.swap(*this);
         return *this;
@@ -121,8 +122,29 @@ private:
     shared_count *_sharedCount = nullptr;
 };
 
+
+class shape {
+public:
+  virtual ~shape() {}
+};
+
+class circle : public shape {
+public:
+  ~circle() { puts("~circle()"); }
+};
+
 int main()
 {
-
-    return 0;
+  smart_ptr<circle> ptr1(new circle());
+  printf("use count of ptr1 is %ld\n",
+         ptr1.use_count());
+  smart_ptr<shape> ptr2;
+  printf("use count of ptr2 was %ld\n",
+         ptr2.use_count());
+  ptr2 = ptr1;
+  printf("use count of ptr2 is now %ld\n",
+         ptr2.use_count());
+  if (ptr1) {
+    puts("ptr1 is not empty");
+  }
 }
