@@ -28,7 +28,10 @@ bool g()
     return local==global;
 }
 
-struct SizeStruct {};
+struct SizeStruct {
+public:
+    ~SizeStruct() {}
+};
 
 
 int main()
