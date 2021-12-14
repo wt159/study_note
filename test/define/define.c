@@ -9,6 +9,12 @@
 #define print(format,args...) printf(format,##args)
 #define test(name) #name
 
+#define Conn(x,y) (x##y)
+
+// #define ToChar(x) (#@x)
+
+#define ToString(x) (#x)
+
 enum
 {
     MON = 1,
@@ -20,11 +26,12 @@ int main(int argc, char *argv[])
 {
     //printf("macro PATH = %s\n", PATH);
     //printf("path(dir,name) = %s\n", path(ROOT,NAME));
-    printf("path(dir,name) = %s\n", path(RO,OT));
+    printf("path(dir,name) = %s\n", Conn(RO,OT));
 
     //printf("macro TEST = %s\n", TEST);
-    printf("test(name) = %s\n", test(NAME));
-    printf("test(MON) = %s\n", test(MON));
+    printf("test(name) = %s\n", ToString(NAME));
+    printf("test(MON) = %s\n", ToString(MON));
+    // printf("test(MON, name) = %s\n", path(MON, NAME));
     //printf("#MON = %s\n", #MON);
 
     print("%s%s\n", ROOT,NAME);
