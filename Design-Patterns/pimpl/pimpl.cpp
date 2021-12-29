@@ -83,9 +83,14 @@ MyClass::MyClass() : pimpl(new MyClassImpl)
 
 MyClass::~MyClass()
 {
+    
+#ifdef USE_UNIQUE_PTR
+    
+#else
     if(pimpl)
         delete pimpl;
     pimpl = nullptr;
+#endif
 }
 
 void MyClass::fun1()

@@ -22,6 +22,7 @@ private:
 }; 
 
 #else
+#include <memory>
 
 // 降低耦合
 // 信息隐藏
@@ -39,7 +40,12 @@ public:
 
 private:
     class MyClassImpl;
+#ifdef USE_UNIQUE_PTR
+    std::unique_ptr<MyClassImpl> pimpl;
+#else
     MyClassImpl* pimpl;
+#endif
+    
 };
 
 #endif // DEBUG
