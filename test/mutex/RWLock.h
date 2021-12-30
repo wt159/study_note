@@ -8,7 +8,7 @@
 #include <mutex>
 #include <condition_variable>
 
-namespace linduo {
+namespace WTP {
 
 class RWLock {
  public:
@@ -57,5 +57,5 @@ class WriteGuard {
 };
 
 
-} /* namespace linduo */
+} /* namespace WTP */
 #endif  // RWLOCK__H

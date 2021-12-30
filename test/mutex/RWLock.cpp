@@ -1,6 +1,6 @@
 #include "RWLock.h"
 
-namespace linduo {
+namespace WTP {
 
 RWLock::RWLock()
     : m_readCount(0)
@@ -60,7 +60,7 @@ WriteGuard::~WriteGuard() {
     m_lock.unlockWrite();
 }
 
-} /* namespace linduo */
+} /* namespace WTP */
 
 
 
