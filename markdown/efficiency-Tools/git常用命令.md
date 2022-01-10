@@ -253,7 +253,66 @@
     git branch -D [branch-name]
     ```
 
-## 账户配置
+## 电脑配置多个账户
+
+以`github.com`为例
+
+1. 生成ssh key
+
+    ```git
+    ssh-keygen -t rsa -C "xxx@email.com"
+    <!-- 在第一个回车时，输入key 文件名字:id_rsa_github -->
+    ```
+
+2. 添加私钥
+
+    ```git
+    ssh-add ~/.ssh/id_rsa_github
+    <!-- 失败了就忽略 -->
+    ```
+
+3. 添加公钥
+
+    ```git
+    <!-- 在github网站自己账户下添加公钥 -->
+    <!-- 右上角account -> setting -> SSH and GPG keys -> 添加 -->
+    ```
+
+4. 添加ssh配置
+
+    ```git
+    touch ~/.ssh/config <!-- 创建文件,输入以下内容 -->
+    ```
+
+    ```git
+    Host          github.com
+    PreferredAuthentications publickey
+    IdentityFile  C:\Users\Administrator\.ssh\id_rsa_github
+    ```
+
+    ```git
+    <!-- 测试命令 -->
+    ssh -T git@github.com
+    ```
+
+5. 初始化账户本地仓库
+
+    ```git
+    <!--  -->
+    git init
+    ```
+
+    ```git
+    <!-- 如有全局配置，需要取消 -->
+    git config --global --unset user.name
+    git config --global --unset user.email
+    ```
+
+    ```git
+    <!-- 单独配置 -->
+    git config user.name "xxxx"
+    git config user.email "xxxx@xx.com"
+    ```
 
 ## Q&A
 
