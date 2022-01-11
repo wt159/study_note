@@ -295,11 +295,11 @@
     ssh -T git@github.com
     ```
 
-5. 初始化账户本地仓库
+5. 配置项目
 
     ```git
-    <!--  -->
-    git init
+    <!-- 下载项目不需要配置邮箱和用户名 -->
+    git clone <项目地址>
     ```
 
     ```git
@@ -309,7 +309,7 @@
     ```
 
     ```git
-    <!-- 单独配置 -->
+    <!-- 为项目单独配置 -->
     git config user.name "xxxx"
     git config user.email "xxxx@xx.com"
     ```
