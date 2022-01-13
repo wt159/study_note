@@ -53,7 +53,7 @@ void notify_all() noexcept;
 
 ## 等待函数
 
-### `wait`
+### `wait()函数`
 
 ```C++
 void wait( std::unique_lock<std::mutex>& lock );
@@ -65,7 +65,7 @@ void wait( std::unique_lock<std::mutex>& lock, Predicate pred );
 
 原子地解锁 lock ，阻塞当前执行线程，并将它添加到于 *this 上等待的线程列表。线程将在执行 notify_all() 或 notify_one() 时被解除阻塞。解阻塞时，无关乎原因， lock 再次锁定且 wait 退出。
 
-### `wait_for`
+### `wait_for()函数`
 
 ```C++
 template< class Rep, class Period >
@@ -80,7 +80,7 @@ bool wait_for( std::unique_lock<std::mutex>& lock,
 
 1. 原子地释放 `lock` ，阻塞当前线程，并将它添加到等待在 *this 上的线程列表。线程将在执行 `notify_all()` 或 `notify_one()` 时，或度过相对时限 `rel_time` 时被解除阻塞。
 
-### `wait_until`
+### `wait_until()函数`
 
 ```C++
 template< class Clock, class Duration >
