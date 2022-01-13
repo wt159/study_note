@@ -65,6 +65,7 @@
 		"chrono",
 		"cond",
 		"mutex",
+		"noexcept",
 		"POSIX",
 		"pthread"
 	]
