@@ -63,7 +63,7 @@ void wait( std::unique_lock<std::mutex>& lock, Predicate pred );
 //wait 导致当前线程阻塞直至条件变量被通知，或虚假唤醒发生，可选地循环直至满足某谓词。
 ```
 
-原子地解锁 lock ，阻塞当前执行线程，并将它添加到于 *this 上等待的线程列表。线程将在执行 notify_all() 或 notify_one() 时被解除阻塞。解阻塞时，无关乎原因， lock 再次锁定且 wait 退出。
+* 原子地解锁 lock ，阻塞当前执行线程，并将它添加到于 *this 上等待的线程列表。线程将在执行 notify_all() 或 notify_one() 时被解除阻塞。当有谓词条件时，解除阻塞时，如不满足谓词，则继续阻塞。
 
 ### `wait_for()函数`
 
