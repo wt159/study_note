@@ -62,6 +62,7 @@
 		"typeinfo": "cpp"
 	},
 	"cSpell.words": [
+		"chrono",
 		"cond",
 		"mutex",
 		"POSIX",

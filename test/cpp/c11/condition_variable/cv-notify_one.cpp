@@ -12,7 +12,8 @@ void waits()
 {
     std::unique_lock<std::mutex> lk(cv_m);
     std::cout << "Waiting... \n";
-    cv.wait(lk, []{return i == 1;});
+    // cv.wait(lk, []{return i == 1;});
+	// cv.wait(lk);
     std::cout << "...finished waiting. i == 1\n";
     done = true;
 }
