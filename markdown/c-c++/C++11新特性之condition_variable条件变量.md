@@ -3,6 +3,11 @@
 
 # 概述
 
+```C++
+#include <condition_variable>
+class std::condition_variable;
+```
+
 `std::condition_variable`是`C++11`才新增的线程支持库中的类，定义于头文件`<condition_variable>`。类似于`POSIX线程`中`pthread_cond_t`变量和`pthread_cond_*()`系列函数的功能。
 
 `condition_variable`类是同步原语，能用于阻塞一个线程，或同时阻塞多个线程，直至另一线程修改共享变量(条件)并通知`condition_variable`。
