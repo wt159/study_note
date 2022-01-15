@@ -7,22 +7,32 @@ namespace WTP
 
     void WritePriorityLock::readLock()
     {
-		std::unique_lock<Mutex> lock(_mutex);
+        std::unique_lock<Mutex> lock(_mutex);
+        _readCndVar.wait(lock, [&] { return 0 == _writeCount; });
         _readCount++;
-        _writeCndVar.wait(lock, [this]{ return _isWriting.load(); });
     }
     void WritePriorityLock::readUnlock()
     {
-        _readCount--; 
-        
+        std::unique_lock<Mutex> lock(_mutex);
+        if( --_readCount == 0 && _writeCount == 1)
+        {
+            _writeCndVar.notify_one();
+        }
     }
 
     void WritePriorityLock::writeLock()
     {
+        std::unique_lock<Mutex> lock(_mutex);
         _writeCount++;
+        _writeCndVar.wait(lock, [&]{ return (0 == _readCount) && (0 == _writeCount);});
     }
     void WritePriorityLock::writeUnlock()
     {
-        _writeCount--;
+        std::unique_lock<Mutex> lock(_mutex);
+        if(--_writeCount != 0) {
+            _writeCndVar.notify_one();
+        } else {
+            _readCndVar.notify_one();
+        }
     }
 }

@@ -20,10 +20,10 @@ namespace WTP
         void writeLock();
         void writeUnlock();
     private:
-        std::atomic<int> _writeCount = 0;
-        std::atomic<int> _readCount = 0;
+        size_t _writeCount = 0;
+        size_t _readCount = 0;
         Mutex _mutex;
-        std::atomic<bool> _isWriting = false;
+        bool _isWriting = false;
         std::condition_variable _readCndVar;
         std::condition_variable _writeCndVar;
     };
