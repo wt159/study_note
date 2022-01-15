@@ -8,7 +8,7 @@ typedef void (*signal2(int, func))(int);    //????
 
 void handle_func(int num)
 {
-
+    printf("%s(), num is %d\n", __FUNCTION__, num);
 }
 
 void signal1_func(int num, func f)
