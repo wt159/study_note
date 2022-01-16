@@ -26,6 +26,7 @@ namespace WTP
 //     std::recursive_mutex _mutex;
 // };
 
-typedef std::recursive_mutex Mutex;
+// typedef std::recursive_mutex Mutex;
+typedef std::mutex Mutex;
 
 }

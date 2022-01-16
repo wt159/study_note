@@ -1,4 +1,5 @@
-#include <WritePriorityLock.h>
+#include "WritePriorityLock.h"
+#include <stdio.h>
 
 namespace WTP
 {
@@ -8,7 +9,7 @@ namespace WTP
     void WritePriorityLock::readLock()
     {
         std::unique_lock<Mutex> lock(_mutex);
-        _readCndVar.wait(lock, [&] { return 0 == _writeCount; });
+        _readCndVar.wait(lock, [&]{ return 0 == this->_writeCount; });
         _readCount++;
     }
     void WritePriorityLock::readUnlock()
@@ -24,7 +25,8 @@ namespace WTP
     {
         std::unique_lock<Mutex> lock(_mutex);
         _writeCount++;
-        _writeCndVar.wait(lock, [&]{ return (0 == _readCount) && (0 == _writeCount);});
+        if(_readCount > 0 && _writeCount > 0)
+            _writeCndVar.wait(lock, [&]{ return (0 == _readCount) && (0 == _writeCount);});
     }
     void WritePriorityLock::writeUnlock()
     {

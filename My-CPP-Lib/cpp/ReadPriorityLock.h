@@ -1,6 +1,6 @@
 #pragma once
-#include <Mutex.h>
-#include <NoCopy.h>
+#include "Mutex.h"
+#include "NoCopy.h"
 #include <atomic>
 
 namespace WTP
@@ -17,7 +17,7 @@ namespace WTP
         void writeLock();
         void writeUnlock();
     private:
-        std::atomic<int> _readCount = 0;
+        std::atomic<int> _readCount;
         Mutex _mutex;
     };
 }

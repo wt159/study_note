@@ -1,8 +1,8 @@
-#include <ReadPriorityLock.h>
+#include "ReadPriorityLock.h"
 
 namespace WTP
 {
-    ReadPriorityLock::ReadPriorityLock() { }
+    ReadPriorityLock::ReadPriorityLock() : _readCount(0) { }
 
     ReadPriorityLock::~ReadPriorityLock()
     {

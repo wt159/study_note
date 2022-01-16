@@ -64,9 +64,14 @@
 	"cSpell.words": [
 		"chrono",
 		"cond",
+		"MLOGD",
+		"MLOGE",
+		"MLOGI",
+		"MLOGW",
 		"mutex",
 		"noexcept",
 		"POSIX",
-		"pthread"
+		"pthread",
+		"WRAN"
 	]
 }

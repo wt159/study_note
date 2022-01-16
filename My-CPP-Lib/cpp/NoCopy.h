@@ -1,5 +1,7 @@
 #pragma once
 
+#include <chrono>
+
 namespace WTP
 {
 
@@ -13,5 +15,9 @@ namespace WTP
         NoCopy &operator=(const NoCopy &) = delete;
         ~NoCopy() = default;
     };
+
+    using Ss = std::chrono::seconds;
+    using Ms = std::chrono::milliseconds;
+    using Us = std::chrono::microseconds;
 
 }

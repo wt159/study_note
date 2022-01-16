@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Mutex.h>
+#include "Mutex.h"
 #include <atomic>
-#include <NoCopy.h>
+#include "NoCopy.h"
 #include <condition_variable>
 
 namespace WTP

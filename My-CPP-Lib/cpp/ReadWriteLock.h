@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Mutex.h>
-#include <NoCopy.h>
+#include "Mutex.h"
+#include "NoCopy.h"
 #include <atomic>
 
 namespace WTP
