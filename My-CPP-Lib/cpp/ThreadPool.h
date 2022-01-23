@@ -64,12 +64,12 @@ namespace WTP
         bool stop(bool isShutdownNow);
 
         template<typename T, typename F, typename ...ARG>
-        bool runTaskWithObj(T obj, F f, ARG ...args)
+        bool runTaskWithObj(T* obj, F f, ARG ...args)
         {
             if(!_isAvailable || !_isRunning || _isShutdownNow || _isShutdown) {
                 return false;
             }
-            TaskFunc task = std::bind(f, std::mem_fn(obj), args...);
+            TaskFunc task = std::bind(std::mem_fn(f), obj, args...);
 
             ThreadPoolLock lock(_taskLock);
             _tasks.push(task);
