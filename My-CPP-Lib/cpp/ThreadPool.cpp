@@ -5,38 +5,46 @@ namespace WTP
 {
     ThreadPool::ThreadPool()
     {
-        ThreadPoolConfig config = {1, 0, 2};
-        ThreadPool(config);
+        _config.coreThreadNum = 1;
+        _config.maxThreadNum = 1;
+        _config.cacheTimeout = PoolSeconds(2);
+        init();
     }
 
     ThreadPool::ThreadPool(size_t coreThradNum, size_t maxThreadNum, size_t cacheTimeOutSecond)
     {
-        ThreadPoolConfig config = {coreThradNum, maxThreadNum, cacheTimeOutSecond};
-        ThreadPool(config);
+        _config.coreThreadNum = coreThradNum;
+        _config.maxThreadNum = maxThreadNum;
+        _config.cacheTimeout = PoolSeconds(cacheTimeOutSecond);
+        init();
     }
 
     ThreadPool::ThreadPool(ThreadPoolConfig config)
         : _config(config)
     {
-        _totalTaskNum.store(0);
-        _waittingThreadNum.store(0);
-        _threadID.store(0);
-        _isShutdown.store(false);
-        _isShutdownNow.store(false);
-        _isRunning.store(false);
-        _coreWorkThread.clear();
-        _cacheWorkThread.clear();
-    
-        if(isValidConfig(_config)) {
-            _isAvailable.store(true);
-        } else {
-            _isAvailable.store(false);
-        }
+        init();
     }
 
     ThreadPool::~ThreadPool()
     {
         stop(true);
+    }
+
+    void ThreadPool::init()
+    {
+        _totalTaskNum.store(0);
+        _waittingThreadNum.store(0);
+        _isShutdown.store(false);
+        _isShutdownNow.store(false);
+        _isRunning.store(false);
+        _coreWorkThread.clear();
+        _cacheWorkThread.clear();
+
+        if (isValidConfig(_config)) {
+            _isAvailable.store(true);
+        } else {
+            _isAvailable.store(false);
+        }
     }
 
     bool ThreadPool::isValidConfig(ThreadPoolConfig& config)
@@ -64,6 +72,7 @@ namespace WTP
     bool ThreadPool::stop(bool isShutdownNow)
     {
         shutdown(isShutdownNow);
+        return true;
     }
 
     void ThreadPool::threadloop(ThreadPool* obj, ThreadWrapperPtr threadPtr)
@@ -80,11 +89,11 @@ namespace WTP
 
             ThreadPoolLock lock(obj->_taskLock);
 
-            if (obj->_isShutdown.load() && obj->_taskList.size() == 0) {
+            if (obj->_isShutdown.load() && obj->_tasks.size() == 0) {
                 break;
             }
 
-            if (obj->_taskList.size() == 0) {
+            if (obj->_tasks.size() == 0) {
                 obj->_waittingThreadNum++;
                 if(threadPtr->flag.load() == ThreadFlag::kCore) {
                     obj->_taskCV.wait(lock);
@@ -100,12 +109,12 @@ namespace WTP
             }
             obj->_waittingThreadNum--;
 
-            if (obj->_waittingThreadNum.load() == 0 && obj->_taskList.size() > obj->_config.coreThreadNum) {
+            if (obj->_waittingThreadNum.load() == 0 && obj->_tasks.size() > obj->_config.coreThreadNum) {
                 obj->addCacheThread();
             }
 
-            auto task = obj->_taskList.front();
-            obj->_taskList.pop();
+            auto task = obj->_tasks.front();
+            obj->_tasks.pop();
 
             task();
         };
@@ -121,7 +130,7 @@ namespace WTP
         ptr->state.store(ThreadState::kRunning);
         ptr->flag.store(ThreadFlag::kCore);
 
-        ThreadPtr thd(new std::thread(&ThreadPool::threadloop, ptr));
+        ThreadPtr thd(new std::thread(&ThreadPool::threadloop, this, ptr));
         ptr->ptr = thd;
     }
     void ThreadPool::addCacheThread()
@@ -147,7 +156,7 @@ namespace WTP
         ptr->state.store(ThreadState::kRunning);
         ptr->flag.store(ThreadFlag::kCache);
 
-        ThreadPtr thd(new std::thread(&ThreadPool::threadloop, ptr));
+        ThreadPtr thd(new std::thread(&ThreadPool::threadloop, this, ptr));
         ptr->ptr = thd;
     }
 
@@ -166,5 +175,8 @@ namespace WTP
                 temp->ptr->join();
             }
         }
+
+        _coreWorkThread.clear();
+        _cacheWorkThread.clear();
     }
 }

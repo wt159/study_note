@@ -27,7 +27,7 @@ namespace WTP
         PoolSeconds cacheTimeout;
     };
 
-    typedef std::function<void(void)> TaskFuncPtr;
+    typedef std::function<void(void)> TaskFunc;
 
     typedef std::shared_ptr<std::thread> ThreadPtr;
     typedef std::atomic<size_t>            ThreadID;
@@ -64,17 +64,32 @@ namespace WTP
         bool stop(bool isShutdownNow);
 
         template<typename T, typename F, typename ...ARG>
-        bool runTask(T obj, F f, ARG ...args)
+        bool runTaskWithObj(T obj, F f, ARG ...args)
         {
             if(!_isAvailable || !_isRunning || _isShutdownNow || _isShutdown) {
                 return false;
             }
-            TaskFuncPtr task = std::bind(f, std::mem_fn(obj), args...);
+            TaskFunc task = std::bind(f, std::mem_fn(obj), args...);
 
             ThreadPoolLock lock(_taskLock);
-            _taskList.push(task);
+            _tasks.push(task);
             lock.unlock();
-            
+
+            _taskCV.notify_one();
+        }
+
+        template <typename F, typename... ARG>
+        bool runTask(F f, ARG... args)
+        {
+            if (!_isAvailable || !_isRunning || _isShutdownNow || _isShutdown) {
+                return false;
+            }
+            TaskFunc task = std::bind(f, args...);
+
+            ThreadPoolLock lock(_taskLock);
+            _tasks.push(task);
+            lock.unlock();
+
             _taskCV.notify_one();
         }
 
@@ -86,7 +101,7 @@ namespace WTP
         bool isValidConfig(ThreadPoolConfig& config);
         void addCoreThread();
         void addCacheThread();
-
+        void init();
         void shutdown(bool isShutdownNow);
 
     private:
@@ -98,14 +113,13 @@ namespace WTP
         std::mutex _cacheThreadMutex;
         std::condition_variable _cacheThreadCV;
 
-        std::queue<TaskFuncPtr> _taskList;
+        std::queue<TaskFunc> _tasks;
 
         std::mutex _taskLock;
         std::condition_variable _taskCV;
 
         std::atomic<size_t> _totalTaskNum;
         std::atomic<size_t> _waittingThreadNum;
-        ThreadID    _threadID;
         
         std::atomic<bool> _isShutdown;
         std::atomic<bool> _isShutdownNow;
