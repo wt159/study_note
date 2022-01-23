@@ -9,8 +9,13 @@ void pool_test(int i)
 int main(int, char**) {
     std::cout << "Hello, world!\n";
     WTP::ThreadPool pool;
+
+    std::cout << "start\n";
     pool.start();
     for(int i=0; i<10; i++) {
         pool.runTask(pool_test, i);
     }
+
+    std::cout << "stop\n";
+    pool.stop(false);
 }
