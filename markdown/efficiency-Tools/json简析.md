@@ -2,25 +2,25 @@
 
 # 概述
 
-* `JSON`是`JavaScript Object Notation`的缩写，它是一种数据交换格式。也是`JavaScript`的一个子集，表示对象。
-* `JSON` 是存储和交换文本信息的语法，类似于 `XML` ，但是它比`XML`更小，更快，更易解析。
-* `JSON` 规定字符集必须是`UTF-8`，字符串必须用双引号`“”`，`Object`的键也必须用双引号`""`。
-* 因为`JSON`有着上面的规定，使得`JSON`在其它编程语言也可以轻易解析。
+* `JSON`是 `JavaScript Object Notation`的缩写，它是一种数据交换格式。也是 `JavaScript`的一个子集，表示对象。
+* `JSON` 是存储和交换文本信息的语法，类似于 `XML` ，但是它比 `XML`更小，更快，更易解析。
+* `JSON` 规定字符集必须是 `UTF-8`，字符串必须用双引号 `“”`，`Object`的键也必须用双引号 `""`。
+* 因为 `JSON`有着上面的规定，使得 `JSON`在其它编程语言也可以轻易解析。
 
 # JSON vs XML
 
 1. 相同之处：
-    * `JSON` 和 `XML` 数据都是 "自我描述" ，都易于理解。
-    * `JSON` 和 `XML` 数据都是有层次的结构
-    * `JSON` 和 `XML` 数据可以被大多数编程语言使用
+   * `JSON` 和 `XML` 数据都是 "自我描述" ，都易于理解。
+   * `JSON` 和 `XML` 数据都是有层次的结构
+   * `JSON` 和 `XML` 数据可以被大多数编程语言使用
 
-------
+---
 
 2. 不同之处：
-    * `JSON` 不需要结束标签
-    * `JSON` 更加简短
-    * `JSON` 读写速度更快
-    * `JSON` 可以使用数组
+   * `JSON` 不需要结束标签
+   * `JSON` 更加简短
+   * `JSON` 读写速度更快
+   * `JSON` 可以使用数组
 
 # 语法
 
@@ -51,58 +51,53 @@ key : value
 
 JSON 值可以是：
 
-* 数字(整数`1`或浮点数`1.0`)
+* 数字(整数 `1`或浮点数 `1.0`)
 
-    ```json
-    { "age" : 20 }
-    ```
+  ```json
+  { "age" : 20 }
+  ```
+* 字符串(在双引号中 `""`)
 
-* 字符串(在双引号中`""`)
-
-    ```json
-    { "name" : "baidu" }
-    ```
-
+  ```json
+  { "name" : "baidu" }
+  ```
 * 逻辑值(`true` 或 `false`)
 
-    ```json
-    { "flag" : true }
-    ```
+  ```json
+  { "flag" : true }
+  ```
+* 数组(在中括号中 `[]`)
 
-* 数组(在中括号中`[]`)
+  ```json
+  [
+      { key1 : value1-1 , key2:value1-2 }, 
+      { key1 : value2-1 , key2:value2-2 }, 
+      { key1 : value3-1 , key2:value3-2 }, 
+      ...
+      { keyN : valueN-1 , keyN:valueN-2 }, 
+  ]
 
-    ```json
-    [
-        { key1 : value1-1 , key2:value1-2 }, 
-        { key1 : value2-1 , key2:value2-2 }, 
-        { key1 : value3-1 , key2:value3-2 }, 
-        ...
-        { keyN : valueN-1 , keyN:valueN-2 }, 
-    ]
+  {
+  "sites": [
+          { "name":"菜鸟教程" , "url":"www.runoob.com" }, 
+          { "name":"google" , "url":"www.google.com" }, 
+          { "name":"微博" , "url":"www.weibo.com" }
+      ]
+  }
+  ```
+* 对象(在大括号中 `{}`)
 
-    {
-    "sites": [
-            { "name":"菜鸟教程" , "url":"www.runoob.com" }, 
-            { "name":"google" , "url":"www.google.com" }, 
-            { "name":"微博" , "url":"www.weibo.com" }
-        ]
-    }
-    ```
-
-* 对象(在大括号中`{}`)
-
-    ```json
-    { key1 : value1, key2 : value2, ... keyN : valueN }
-    { "age" : 20 , "name" : "lisi" }
-    ```
-
+  ```json
+  { key1 : value1, key2 : value2, ... keyN : valueN }
+  { "age" : 20 , "name" : "lisi" }
+  ```
 * null
 
-    ```json
-    { "value" : null }
-    ```
+  ```json
+  { "value" : null }
+  ```
 
-## 对象语法
+## JSON对象
 
 实例:
 
@@ -115,3 +110,56 @@ JSON 值可以是：
 * `key` 必须是字符串，`value` 可以是合法的 `JSON` 数据类型（字符串, 数字, 对象, 数组, 布尔值或 null）。
 * `key` 和 `value` 中使用冒号(`:`)分割。
 * 每个 `key/value` 对使用逗号(`,`)分割。
+
+### 嵌套对象
+
+```json
+{
+    "name":"runoob",
+    "alexa":10000,
+    "sites": {
+        "site1":"www.runoob.com",
+        "site2":"m.runoob.com",
+        "site3":"c.runoob.com"
+    }
+}
+```
+
+## JSON数组
+
+### 数组对象
+实例：
+```json
+[ "Google", "Runoob", "Taobao" ]
+```
+* JSON 数组在中括号中书写。
+
+* JSON 中数组值必须是合法的 JSON 数据类型（字符串, 数字, 对象, 数组, 布尔值或 null）。
+
+### 对象中的数组
+
+对象属性的值可以是一个数组：
+实例：
+```json
+{
+  "name":"网站",
+  "num":3,
+  "sites":[ "Google", "Runoob", "Taobao" ]
+}
+```
+
+### 嵌套数组
+
+JSON 对象中数组可以包含另外一个数组，或者另外一个 JSON 对象：
+实例：
+```json
+{
+    "name":"网站",
+    "num":3,
+    "sites": [
+        { "name":"Google", "info":[ "Android", "Google 搜索", "Google 翻译" ] },
+        { "name":"Runoob", "info":[ "菜鸟教程", "菜鸟工具", "菜鸟微信" ] },
+        { "name":"Taobao", "info":[ "淘宝", "网购" ] }
+    ]
+}
+```
