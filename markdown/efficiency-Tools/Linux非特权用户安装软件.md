@@ -27,7 +27,7 @@ source ~/.bashrc
 # 下载
 wget http://ftp.gnu.org/gnu/ncurses/ncurses-6.0.tar.gz
 # 解压
-tar -zxvf ncurses-6.0.tar.gz
+tar zxvf ncurses-6.0.tar.gz
 # 
 cd ncurses-6.0
 # 配置
