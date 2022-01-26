@@ -258,9 +258,10 @@ git常用命令
    ```
 
    ```git
-   Host          github.com
+   Host github.com
    PreferredAuthentications publickey
-   IdentityFile  C:\Users\Administrator\.ssh\id_rsa_github
+   User xxx@email.com
+   IdentityFile ~/.ssh/id_rsa_github
    ```
 
    ```git
