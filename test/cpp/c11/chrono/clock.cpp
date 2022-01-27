@@ -1,6 +1,6 @@
 #include <iostream>
 #include <thread>
-#include "clock.h"
+// #include "clock.h"
 
 #ifdef _WIN32
 #include <windows.h>
