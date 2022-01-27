@@ -50,7 +50,7 @@ namespace WTP
     bool ThreadPool::isValidConfig(ThreadPoolConfig& config)
     {
         return !(config.coreThreadNum < 1 
-                || config.maxThreadNum < config.maxThreadNum
+                || config.coreThreadNum < config.maxThreadNum
                 || config.cacheTimeout.count() < 1);
     }
 
@@ -67,6 +67,7 @@ namespace WTP
             addCacheThread();
         }
         _isRunning.store(true);
+        return true;
     }
 
     bool ThreadPool::stop(bool isShutdownNow)

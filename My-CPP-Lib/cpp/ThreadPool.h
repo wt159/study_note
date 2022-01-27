@@ -66,7 +66,7 @@ namespace WTP
         template<typename T, typename F, typename ...ARG>
         bool runTaskWithObj(T* obj, F f, ARG ...args)
         {
-            if(!_isAvailable || !_isRunning || _isShutdownNow || _isShutdown) {
+            if(!_isAvailable.load() || !_isRunning.load() || _isShutdownNow.load() || _isShutdown.load()) {
                 return false;
             }
             TaskFunc task = std::bind(std::mem_fn(f), obj, args...);
@@ -76,6 +76,7 @@ namespace WTP
             lock.unlock();
 
             _taskCV.notify_one();
+            return true;
         }
 
         template <typename F, typename... ARG>
@@ -91,6 +92,7 @@ namespace WTP
             lock.unlock();
 
             _taskCV.notify_one();
+            return true;
         }
 
         /* thread pool status */
