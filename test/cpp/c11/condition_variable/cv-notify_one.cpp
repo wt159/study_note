@@ -12,7 +12,7 @@ void waits()
 {
     std::unique_lock<std::mutex> lk(cv_m);
     std::cout << "Waiting... \n";
-    // cv.wait(lk, []{return i == 1;});
+    cv.wait(lk, []{return i == 1;});
 	// cv.wait(lk);
     std::cout << "...finished waiting. i == 1\n";
     done = true;
@@ -30,10 +30,10 @@ void signals()
     while (!done) 
     {
         std::cout << "Notifying true change...\n";
-        // lk.unlock();
+        lk.unlock();
         cv.notify_one(); // 等待线程被通知 i == 1 ， cv.wait 返回
         std::this_thread::sleep_for(std::chrono::seconds(1));
-        // lk.lock();
+        lk.lock();
     }
 }
  
