@@ -1,6 +1,6 @@
 [toc]
 
-# 步骤
+## 步骤
 > windows下需要手动设置编译器
 1. **mkdir build**
 2. **cd build**
@@ -8,7 +8,7 @@
 4. **make**
 5. **make install**
 
-## 编译单个源文件
+#### 编译单个源文件
 ```cmake
 # CMake 最低版本号要求
 cmake_minimum_required (VERSION 2.8)
@@ -20,7 +20,7 @@ project (Demo1)
 add_executable(Demo main.cc)
 ```
 
-## 编译多个源文件(单目录)
+#### 编译多个源文件(单目录)
 ```cmake
 # CMake 最低版本号要求
 cmake_minimum_required (VERSION 2.8)
