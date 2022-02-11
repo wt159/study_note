@@ -10,7 +10,7 @@
 4. **make**
 5. **make install**
 
-#### 简单项目
+#### 基本项目
 
 ```cmake
 # CMake 最低版本号要求
@@ -20,27 +20,24 @@ cmake_minimum_required (VERSION 2.8)
 project (Demo1)
 
 # 指定生成目标
-add_executable(Demo main.cc)
+add_executable(${PROJECT_NAME} main.cc)
 ```
 
 #### 查找目录下的所有源文件
 
 ```makefile
-# CMake 最低版本号要求
-cmake_minimum_required (VERSION 2.8)
-
-# 项目信息
-project (Demo2)
-
 # 查找目录下的所有源文件
 # 并将名称保存到 DIR_SRCS 变量
 aux_source_directory(. DIR_SRCS)
 
-# 指定生成目标
-add_executable(Demo ${DIR_SRCS})
+# 多目录
+aux_source_directory(. DIR_SRCS)
+aux_source_directory(<src_dir> DIR_SRCS)
 ```
 
 #### 添加头文件路径
+
+类似于 `makefile`中的 `-I`
 
 ```makefile
 include_directories ("${PROJECT_SOURCE_DIR}/math")
@@ -67,58 +64,64 @@ aux_source_directory(. DIR_LIB_SRCS)
 add_library (MathFunctions ${DIR_LIB_SRCS})
 ```
 
-#### 添加CTEST测试
+#### 添加C CXX语言版本
 
-需要先实现一个可以接受输入参数的可执行程序，用 `add_executable` 就可以，不用管这个可执行程序的存放目录，CMake 会帮你自动填上。
-
-```makefile
-# 启用测试
-enable_testing()
-
-# 测试 5 的平方
-# add_test (test_5_2 Demo 5 2)
-# set_tests_properties (test_5_2 PROPERTIES PASS_REGULAR_EXPRESSION "is 25")
-
-# 定义一个宏，用来简化测试工作
-macro (do_test arg1 arg2 result)
-  add_test (test_${arg1}_${arg2} Demo ${arg1} ${arg2})
-  set_tests_properties (test_${arg1}_${arg2}
-    PROPERTIES PASS_REGULAR_EXPRESSION ${result})
-endmacro (do_test)
-
-# 利用 do_test 宏，测试一系列数据
-do_test (5 2 "is 25")
-do_test (10 5 "is 100000")
-do_test (2 10 "is 1024")
+```cmake
+# 设置C CXX版本
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED OFF)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 ```
 
-#### make install打包安装
+#### 添加编译选项
 
-
-install用于指定在安装时运行的规则。它可以用来安装很多内容，可以包括目标二进制、动态库、静态库以及文件、目录、脚本等：
-
-```makefile
-install(TARGETS <target>... [...])
-install({FILES | PROGRAMS} <file>... [...])
-install(DIRECTORY <dir>... [...])
-install(SCRIPT <file> [...])
-install(CODE <code> [...])
-install(EXPORT <export-name> [...])
-```
-
-#### cmake message函数使用及打印变量
-
-```makefile
-message( [STATUS|WARNING|AUTHOR_WARNING|FATAL_ERROR|SEND_ERROR]
-  "message to display" ...)
-```
-
-```makefile
-(无) = 重要消息；
- STATUS = 非重要消息；
- WARNING = CMake 警告, 会继续执行；
- AUTHOR_WARNING = CMake 警告 (dev), 会继续执行；
- SEND_ERROR = CMake 错误, 继续执行，但是会跳过生成的步骤；
- FATAL_ERROR = CMake 错误, 终止所有处理过程；
+##### 设置全局编译选项
 
 ```
+add_compile_options(-c -g -Wall)
+```
+
+##### 设置C和CXX编译选项
+
+```
+# C编译器
+# set(CMAKE_C_FLAGS "-fPIC -c -g -Wall -O2 -DENABLE_DM_AUDIO")
+# set(CMAKE_C_FLAGS_DEBUG "-g")
+# set(CMAKE_C_FLAGS_RELWITHDENINFO "-O2 -g")
+
+# CXX编译器
+# set(CMAKE_CXX_FLAGS "-std=c++11 -fPIC -c -g -Wall -O2 -DENABLE_DM_AUDIO")
+# set(CMAKE_CXX_FLAGS_DEBUG "-g")
+# set(CMAKE_CXX_FLAGS_RELWITHDENINFO "-O2 -g")
+```
+
+#### 添加三方库路径
+
+```
+link_directories(<lib_dir> ...)
+```
+
+#### 链接三方库
+
+```
+target_link_libraries(${PROJECT_NAME} 
+    -static # 可选，静态链接
+    pthread
+    dl
+    json 
+    )
+```
+
+#### cmake常用变量
+
+```
+# 项目名称
+PROJECT_NAME
+
+# CMakeList.txt文件所在目录路径
+CMAKE_SOURCE_DIR
+```
+
+
+1
