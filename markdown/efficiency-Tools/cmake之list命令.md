@@ -173,3 +173,18 @@ message("list sort out: ${my_list_var}")
 ```
 [cmake] list sort out: aaa;ddd;eee;fff
 ```
+
+### 应用案例1
+```
+# 从源文件删除某个文件(名称带有`a`)
+foreach (TMP_SRC_FILE ${my_list_var})
+    if("${TMP_SRC_FILE}" MATCHES "a")
+        list(REMOVE_ITEM  my_list_var  "${TMP_SRC_FILE}")
+    endif()
+endforeach()
+message("list  out: ${my_list_var}")
+```
+输出为：
+```
+[cmake] list  out: ddd;eee;fff
+```
