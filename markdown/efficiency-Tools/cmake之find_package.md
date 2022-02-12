@@ -1,10 +1,21 @@
 [toc]
 
-## cmake之find_package
 
-cmake中经常使用find_package寻找模块，使用起来非常方便．我们不但可以使用find_package快速寻找模块,也可以自定义模块方便给别人使用.
+## 基本调用模式
 
-### 自定义module
+CMake的find_package指令用于查找并载入一个外部包的设置.[详细了解请点击](https://zhuanlan.zhihu.com/p/60479441)
+
+```
+find_package(<PackageName> [version] [EXACT] [QUIET] [MODULE]
+             [REQUIRED] [[COMPONENTS] [components...]]
+             [OPTIONAL_COMPONENTS components...]
+             [NO_POLICY_SCOPE])
+```
+
+### 自定义module包
+
+
+### 自定义config包
 
 我们可以自定义一个module给别人使用,步骤如下:
 
