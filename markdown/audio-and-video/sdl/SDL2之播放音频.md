@@ -97,7 +97,7 @@ typedef Uint16 SDL_AudioFormat;
 /* @} */
 ```
 
-```c
+```C
 /**
  *  This function is called when the audio device needs more data.
  *
@@ -141,8 +141,7 @@ typedef struct SDL_AudioSpec
 } SDL_AudioSpec;
 ```
 
-```
-
+```C
 struct SDL_AudioCVT;
 typedef void (SDLCALL * SDL_AudioFilter) (struct SDL_AudioCVT * cvt,
                                           SDL_AudioFormat format);
