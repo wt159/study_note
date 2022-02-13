@@ -2,12 +2,12 @@
 
 SDL2音频子系统相关API介绍,
 
-#### 实验环境
+##### 实验环境
 
 * QT 5.14.2(mingw730_64)
 * SDL2.0.16
 
-#### 音频相关结构体
+##### 音频相关结构体
 
 ```C
 // 音频格式
@@ -194,7 +194,7 @@ SDL_OpenAudioDevice(NULL, 0, desired, obtained, SDL_AUDIO_ALLOW_ANY_CHANGE);
 | `int SDL_GetAudioDeviceSpec(int index, int iscapture, SDL_AudioSpec *spec);`                                                                        | 获取设备参数     |                                                                                                         |
 | `SDL_AudioDeviceID SDL_OpenAudioDevice(const char *device,int iscapture,const SDL_AudioSpec *desired,SDL_AudioSpec *obtained,int allowed_changes);` | 打开音频设备     |                                                                                                         |
 
-##### 其它
+##### 状态
 
 ```C
 typedef enum
@@ -205,11 +205,74 @@ typedef enum
 } SDL_AudioStatus;
 ```
 
+| API                                                                | 说明               | 注意       |
+| ------------------------------------------------------------------ | ------------------ | ---------- |
+| `SDL_AudioStatus SDL_GetAudioStatus(void);`                      | 获取现在音频状态   |            |
+| `SDL_AudioStatus SDL_GetAudioDeviceStatus(void);`                |                    |            |
+| `void SDL_PauseAudio(int pause_on);`                             | 暂停音频(0:不暂停) | 进一步查看 |
+| `void SDL_PauseAudioDevice(SDL_AudioDeviceID dev,int pause_on);` |                    |            |
 
-| API                                                                | 说明             | 注意 |
-| ------------------------------------------------------------------ | ---------------- | ---- |
-| `SDL_AudioStatus SDL_GetAudioStatus(void);`                      | 获取现在音频状态 |      |
-| `SDL_AudioStatus SDL_GetAudioDeviceStatus(void);`                |                  |      |
-| `void SDL_PauseAudio(int pause_on);`                             |                  |      |
-| `void SDL_PauseAudioDevice(SDL_AudioDeviceID dev,int pause_on);` |                  |      |
-|                                                                    |                  |      |
+##### 文件
+
+```C
+/**
+ *  Loads a WAV from a file.
+ *  Compatibility convenience function.
+ */
+#define SDL_LoadWAV(file, spec, audio_buf, audio_len) \
+    SDL_LoadWAV_RW(SDL_RWFromFile(file, "rb"),1, spec,audio_buf,audio_len)
+
+```
+
+| API                                                                                                                        | 说明                   | 注意 |
+| -------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ---- |
+| `SDL_AudioSpec *SDL_LoadWAV_RW(SDL_RWops * src,int freesrc,SDL_AudioSpec * spec,Uint8 ** audio_buf,Uint32 * audio_len);` | 从SDL_RWops加载wav文件 |      |
+| `void SDLCALL SDL_FreeWAV(Uint8 * audio_buf);`                                                                           | 释放wav文件资源        |      |
+
+##### 音频转换
+
+```C
+struct SDL_AudioCVT;
+typedef void (SDLCALL * SDL_AudioFilter) (struct SDL_AudioCVT * cvt,
+                                          SDL_AudioFormat format);
+
+/**
+ *  \brief Upper limit of filters in SDL_AudioCVT
+ *
+ *  The maximum number of SDL_AudioFilter functions in SDL_AudioCVT is
+ *  currently limited to 9. The SDL_AudioCVT.filters array has 10 pointers,
+ *  one of which is the terminating NULL pointer.
+ */
+#define SDL_AUDIOCVT_MAX_FILTERS 9
+
+#define SDL_AUDIOCVT_PACKED __attribute__((packed))
+#else
+#define SDL_AUDIOCVT_PACKED
+#endif
+/* */
+typedef struct SDL_AudioCVT
+{
+    int needed;                 /**< Set to 1 if conversion possible */
+    SDL_AudioFormat src_format; /**< Source audio format */
+    SDL_AudioFormat dst_format; /**< Target audio format */
+    double rate_incr;           /**< Rate conversion increment */
+    Uint8 *buf;                 /**< Buffer to hold entire audio data */
+    int len;                    /**< Length of original audio buffer */
+    int len_cvt;                /**< Length of converted audio buffer */
+    int len_mult;               /**< buffer must be len*len_mult big */
+    double len_ratio;           /**< Given len, final size is len*len_ratio */
+    SDL_AudioFilter filters[SDL_AUDIOCVT_MAX_FILTERS + 1]; /**< NULL-terminated list of filter functions */
+    int filter_index;           /**< Current audio conversion function */
+} SDL_AUDIOCVT_PACKED SDL_AudioCVT;
+```
+
+| API                                                                                                                                                                                | 说明 | 注意 |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
+| `int SDLCALL SDL_BuildAudioCVT(SDL_AudioCVT * cvt, SDL_AudioFormat src_format, Uint8 src_channels, int src_rate, SDL_AudioFormat dst_format, Uint8 dst_channels, int dst_rate);` |      |      |
+|                                                                                                                                                                                    |      |      |
+|                                                                                                                                                                                    |      |      |
+|                                                                                                                                                                                    |      |      |
+|                                                                                                                                                                                    |      |      |
+|                                                                                                                                                                                    |      |      |
+|                                                                                                                                                                                    |      |      |
+|                                                                                                                                                                                    |      |      |
