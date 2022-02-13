@@ -172,14 +172,14 @@ typedef struct SDL_AudioCVT
 
 ##### 驱动相关
 
-| API                                                                      | 说明                     | 注意                                 |
-| ------------------------------------------------------------------------ | ------------------------ | ------------------------------------ |
-| `int SDL_GetNumAudioDrivers(void);`                                    | 获取音频驱动器数量       |                                      |
-| `const char* SDL_GetAudioDriver(int index);`                           | 获取驱动器名称           |                                      |
-| `int SDL_AudioInit(const char* driver_name);`                          | 初始化                   | 内部调用,一般直接使用 `SDL_Init()` |
-| `void SDL_AudioQuit(void);`                                            | 清除                     | `SDL_Quit();`                      |
-| `const char * SDL_GetCurrentAudioDriver(void);`                        | 获取现在使用的驱动器名称 |                                      |
-| `int SDL_OpenAudio(SDL_AudioSpec * desired,SDL_AudioSpec * obtained);` | 打开音频                 | 传统简单接口,为了兼容 `SDL 1.3`,`SDL 2.0`以后使用`SDL_OpenAudioDevice()` ,相等同于一下调用:   |
+| API                                                                      | 说明                     | 注意                                                                                               |
+| ------------------------------------------------------------------------ | ------------------------ | -------------------------------------------------------------------------------------------------- |
+| `int SDL_GetNumAudioDrivers(void);`                                    | 获取音频驱动器数量       |                                                                                                    |
+| `const char* SDL_GetAudioDriver(int index);`                           | 获取驱动器名称           |                                                                                                    |
+| `int SDL_AudioInit(const char* driver_name);`                          | 初始化                   | 内部调用,一般直接使用 `SDL_Init()`                                                               |
+| `void SDL_AudioQuit(void);`                                            | 清除                     | `SDL_Quit();`                                                                                    |
+| `const char * SDL_GetCurrentAudioDriver(void);`                        | 获取现在使用的驱动器名称 |                                                                                                    |
+| `int SDL_OpenAudio(SDL_AudioSpec * desired,SDL_AudioSpec * obtained);` | 打开音频                 | 传统简单接口,为了兼容 `SDL 1.3`,`SDL 2.0`以后使用 `SDL_OpenAudioDevice()` ,相等同于一下调用: |
 
 ```c++
 SDL_OpenAudioDevice(NULL, 0, desired, obtained, SDL_AUDIO_ALLOW_ANY_CHANGE);
@@ -187,9 +187,9 @@ SDL_OpenAudioDevice(NULL, 0, desired, obtained, SDL_AUDIO_ALLOW_ANY_CHANGE);
 
 ##### 设备相关
 
-| API                                                                                                                                                   | 说明             | 注意 |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ---- |
-| `int SDL_GetNumAudioDevices(int iscapture);`                                                                                                        | 获取音频设备数量 |      |
-| `const char *SDL_GetAudioDeviceName(int index, int iscapture);`                                                                                     | 获取设备名称     |      |
-| `int SDL_GetAudioDeviceSpec(int index, int iscapture, SDL_AudioSpec *spec);`                                                                        | 获取设备参数     |      |
-| `SDL_AudioDeviceID SDL_OpenAudioDevice(const char *device,int iscapture,const SDL_AudioSpec *desired,SDL_AudioSpec *obtained,int allowed_changes);` | 打开音频设备     |      |
+| API                                                                                                                                                   | 说明             | 注意                                                                                                            |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- |
+| `int SDL_GetNumAudioDevices(int iscapture);`                                                                                                        | 获取音频设备数量 | 请注意，从 `SDL 2.0.4`开始，音频捕获支持还没有实现，所以 `iscapture`参数是为将来的扩展准备的，现在应该是0。 |
+| `const char *SDL_GetAudioDeviceName(int index, int iscapture);`                                                                                     | 获取设备名称     |                                                                                                                 |
+| `int SDL_GetAudioDeviceSpec(int index, int iscapture, SDL_AudioSpec *spec);`                                                                        | 获取设备参数     |                                                                                                                 |
+| `SDL_AudioDeviceID SDL_OpenAudioDevice(const char *device,int iscapture,const SDL_AudioSpec *desired,SDL_AudioSpec *obtained,int allowed_changes);` | 打开音频设备     |                                                                                                                 |
