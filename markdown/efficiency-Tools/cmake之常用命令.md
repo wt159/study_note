@@ -1,5 +1,9 @@
 [toc]
 
+## 概述
+
+示例查看[cmake-demo](https://gitee.com/wtping/cmake-demo)
+
 ## 步骤
 
 > windows下需要手动设置编译器
@@ -122,6 +126,5 @@ PROJECT_NAME
 # CMakeList.txt文件所在目录路径
 CMAKE_SOURCE_DIR
 ```
-
 
 1
